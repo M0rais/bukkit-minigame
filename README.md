@@ -10,7 +10,7 @@
 **Version: 1.16**
 
 **If anyone wants to help, all you have to do is send a pull request or send me a message. Discord: DMMS#1337**
-#Example:
+# Example:
 ![Example](https://media.giphy.com/media/uNhWYQC1XfVO1lzJCq/giphy.gif)
 
 # Features
