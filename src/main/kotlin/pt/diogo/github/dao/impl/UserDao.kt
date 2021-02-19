@@ -5,22 +5,18 @@ import pt.diogo.github.model.User
 
 class UserDao : DaoProvider<User> {
 
-    private val users = mutableMapOf<String, User>()
+    override val cache: MutableMap<String, User>
+        get() = mutableMapOf()
 
     override fun addByType(t: User) {
-        users[t.playerName] = t
+        cache[t.playerName] = t
     }
 
     override fun findByID(id: String): User? {
-        return users[id]
-    }
-
-    override fun getMap(): MutableMap<String, User> {
-        return users
+        return cache[id]
     }
 
     override fun removeByID(id: String) {
-        users.remove(id)
-        TODO("Remove from database")
+        cache.remove(id)
     }
 }

@@ -6,28 +6,19 @@ import pt.diogo.github.model.Field
 
 class FieldDao : DaoProvider<Field> {
 
-    private val fields = mutableMapOf<String, Field>()
+    override val cache: MutableMap<String, Field>
+        get() = mutableMapOf()
 
     override fun addByType(t: Field) {
-        fields[t.id] = t
-        save(t)
+        cache[t.id] = t
     }
 
     override fun findByID(id: String): Field? {
-        return fields[id]
-    }
-
-    override fun getMap(): MutableMap<String, Field> {
-        return fields
+        return cache[id]
     }
 
     override fun removeByID(id: String) {
-        fields.remove(id)
-        TODO("Set id to null at fields.yml")
-    }
-
-    private fun save(field: Field) {
-        TODO("Save inside fields.yml")
+        cache.remove(id)
     }
 
 }

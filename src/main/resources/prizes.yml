@@ -1,0 +1,15 @@
+prizes:
+  example:
+    id: "example"
+    chance: 55
+    money: 1000.0
+    extra-win: false
+    commands:
+      - "kick {player} example"
+  example2:
+    id: "example2"
+    chance: 45
+    money: 1000.0
+    extra-win: true
+    commands:
+      - "kick {player} example2"
