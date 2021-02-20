@@ -4,6 +4,7 @@ import pt.diogo.github.BukkitMiniGame
 import pt.diogo.github.dao.DaoProvider
 import pt.diogo.github.model.Cuboid
 import pt.diogo.github.model.Field
+import pt.diogo.github.model.Square
 import pt.diogo.github.process.ProcessProvider
 
 class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> {
@@ -20,8 +21,8 @@ class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> 
             dao.addByType(
                 Field(
                     id = config.getString("$path.id")!!,
-                    display = config.getString("$path.id")!!,
-                    cuboid = config.getString("$path.id")!!.toCuboid(),
+                    display = config.getString("$path.display")!!,
+                    square = config.getString("$path.square")!!.toSquare(),
                     prize = prizeDao.findByID("$path.prize")!!
                 )
             )
@@ -41,11 +42,26 @@ class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> 
 
         config.set("$path.id", t.id)
         config.set("$path.display", t.display)
-        config.set("$path.cuboid", t.cuboid.toStr())
+        config.set("$path.square", t.square.toStr())
         config.set("$path.prize", t.prize.id)
 
         config.save()
         config.reload()
+    }
+
+    private fun Square.toStr(): String {
+        return "${this.yellowSquare.toStr()};${this.greenSquare.toStr()};${this.blueSquare.toStr()};${this.redSquare.toStr()}"
+    }
+
+    private fun String.toSquare(): Square {
+        val (yellowSquare, greenSquare, blueSquare, redSquare) = this.split(";")
+
+        return Square(
+            yellowSquare = yellowSquare.toCuboid(),
+            greenSquare = greenSquare.toCuboid(),
+            blueSquare = blueSquare.toCuboid(),
+            redSquare = redSquare.toCuboid()
+        )
     }
 
     private fun Cuboid.toStr(): String {

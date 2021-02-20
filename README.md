@@ -13,6 +13,14 @@
 # Example 👀
 ![Example](https://media.giphy.com/media/uNhWYQC1XfVO1lzJCq/giphy.gif)
 
+# Calculating the squares 🟦
+![Square](https://i.imgur.com/h95xPeN.png)
+
+Maybe you don't understand why I am doing +1 at the max/2, explanation: 
+![Explanation](https://i.imgur.com/bNVGKBr.png)
+
+The field must be a perfect square, in order to do that I just need to verify if the height = width.
+
 # Features 🔨
 
 - Kits
