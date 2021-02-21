@@ -1,5 +1,6 @@
 package pt.diogo.github.process.impl
 
+import org.bukkit.util.Vector
 import pt.diogo.github.BukkitMiniGame
 import pt.diogo.github.dao.DaoProvider
 import pt.diogo.github.model.Cuboid
@@ -64,19 +65,25 @@ class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> 
         )
     }
 
+    private fun Vector.toStr(): String {
+        return "${this.blockX}:${this.blockY}:${this.blockZ}"
+    }
+
+    private fun String.toVector(): Vector {
+        val (x, y, z) = this.split(":")
+        return Vector(x.toDouble(), y.toDouble(), z.toDouble())
+    }
+
     private fun Cuboid.toStr(): String {
-        return "${this.minX}:${this.maxX}:${this.minZ}:${this.maxZ}:${this.y}:${this.world}"
+        return "${this.min.toStr()}:${this.max.toStr()}:${this.world}"
     }
 
     private fun String.toCuboid(): Cuboid {
-        val (minX, maxX, minZ, maxZ, y) = this.split(":")
+        val (min, max, world) = this.split(":")
         return Cuboid(
-            minX.toDouble(),
-            maxX.toDouble(),
-            minZ.toDouble(),
-            maxZ.toDouble(),
-            y.toDouble(),
-            this.split(":")[5]
+            min.toVector(),
+            max.toVector(),
+            world
         )
     }
 

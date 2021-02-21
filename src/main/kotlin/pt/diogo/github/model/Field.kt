@@ -1,6 +1,8 @@
 package pt.diogo.github.model
 
-data class Cuboid(val minX: Double, val maxX: Double, val minZ: Double, val maxZ: Double, val y: Double, val world: String)
+import org.bukkit.util.Vector
+
+data class Cuboid(val min: Vector, val max: Vector, val world: String)
 
 data class Square(val yellowSquare: Cuboid, val greenSquare: Cuboid, val blueSquare: Cuboid, val redSquare: Cuboid)
 
