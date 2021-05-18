@@ -16,9 +16,9 @@ class User(id: EntityID<Int>) : IntEntity(id) {
 
 object Users : IntIdTable() {
     val playerName = varchar("playerName", 30)
-    val wins = double("wins")
-    val maxLevel = integer("maxLevel")
-    val games = double("games")
+    var wins = double("wins")
+    var maxLevel = integer("maxLevel")
+    var games = double("games")
 
     override val primaryKey = PrimaryKey(playerName)
 }

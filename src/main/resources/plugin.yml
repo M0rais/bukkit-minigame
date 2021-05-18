@@ -2,3 +2,4 @@ name: bukkit-minigame
 main: pt.diogo.github.BukkitMiniGame
 version: 1.0.0
 author: Morais
+depend: [Vault]

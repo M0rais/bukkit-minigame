@@ -1,17 +1,15 @@
 package pt.diogo.github.process.impl
 
-import org.bukkit.util.Vector
 import pt.diogo.github.BukkitMiniGame
 import pt.diogo.github.dao.DaoProvider
-import pt.diogo.github.model.Cuboid
 import pt.diogo.github.model.Field
-import pt.diogo.github.model.Square
 import pt.diogo.github.process.ProcessProvider
+import pt.diogo.github.toLocation
+import pt.diogo.github.toMap
+import pt.diogo.github.toStr
 
 class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> {
-    override val dao: DaoProvider<Field>
-        get() = plugin.fieldDao
-    private val prizeDao = plugin.prizeDao
+    override val dao: DaoProvider<Field> = plugin.fieldDao
 
     private val config = plugin.fieldConfiguration
 
@@ -23,8 +21,9 @@ class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> 
                 Field(
                     id = config.getString("$path.id")!!,
                     display = config.getString("$path.display")!!,
-                    square = config.getString("$path.square")!!.toSquare(),
-                    prize = prizeDao.findByID("$path.prize")!!
+                    squares = config.getString("$path.square")!!.toMap(),
+                    exitLocation = config.getString("$path.exit")!!.toLocation(),
+                    spawnLocation = config.getString("$path.spawn")!!.toLocation()
                 )
             )
 
@@ -43,48 +42,12 @@ class FieldProcess(private val plugin: BukkitMiniGame) : ProcessProvider<Field> 
 
         config.set("$path.id", t.id)
         config.set("$path.display", t.display)
-        config.set("$path.square", t.square.toStr())
-        config.set("$path.prize", t.prize.id)
+        config.set("$path.square", t.squares.toStr())
+        config.set("$path.exit", t.exitLocation.toStr())
+        config.set("$path.spawn", t.spawnLocation.toStr())
 
         config.save()
         config.reload()
-    }
-
-    private fun Square.toStr(): String {
-        return "${this.yellowSquare.toStr()};${this.greenSquare.toStr()};${this.blueSquare.toStr()};${this.redSquare.toStr()}"
-    }
-
-    private fun String.toSquare(): Square {
-        val (yellowSquare, greenSquare, blueSquare, redSquare) = this.split(";")
-
-        return Square(
-            yellowSquare = yellowSquare.toCuboid(),
-            greenSquare = greenSquare.toCuboid(),
-            blueSquare = blueSquare.toCuboid(),
-            redSquare = redSquare.toCuboid()
-        )
-    }
-
-    private fun Vector.toStr(): String {
-        return "${this.blockX}:${this.blockY}:${this.blockZ}"
-    }
-
-    private fun String.toVector(): Vector {
-        val (x, y, z) = this.split(":")
-        return Vector(x.toDouble(), y.toDouble(), z.toDouble())
-    }
-
-    private fun Cuboid.toStr(): String {
-        return "${this.min.toStr()}:${this.max.toStr()}:${this.world}"
-    }
-
-    private fun String.toCuboid(): Cuboid {
-        val (min, max, world) = this.split(":")
-        return Cuboid(
-            min.toVector(),
-            max.toVector(),
-            world
-        )
     }
 
 }

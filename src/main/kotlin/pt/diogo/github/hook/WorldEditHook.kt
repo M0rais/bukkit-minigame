@@ -18,7 +18,7 @@ class WorldEditHook {
 
     private val we: WorldEditPlugin = Bukkit.getServer().pluginManager.getPlugin("WorldEdit") as WorldEditPlugin
 
-    fun getRegionByPlayer(player: Player) : Region {
+    fun getRegionByPlayer(player: Player): Region {
         val bPlayer = BukkitAdapter.adapt(player)
         return we.worldEdit.sessionManager.get(bPlayer).getRegionSelector(bPlayer.world).region
     }

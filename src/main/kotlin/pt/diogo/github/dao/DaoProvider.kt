@@ -6,7 +6,7 @@ interface DaoProvider<T> {
 
     fun addByType(t: T)
 
-    fun findByID(id: String) : T?
+    fun findByID(id: String): T?
 
     fun removeByID(id: String)
 

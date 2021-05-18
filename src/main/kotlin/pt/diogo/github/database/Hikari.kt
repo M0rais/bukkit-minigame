@@ -7,10 +7,10 @@ class Hikari(host: String, port: String, database: String, user: String, passwor
     val source = HikariDataSource()
 
     init {
-        source.jdbcUrl = "jdbc:mysql://$host:$port/$database";
-        source.username = user;
-        source.password = password;
-        source.addDataSourceProperty("autoReconnect", "true");
+        source.jdbcUrl = "jdbc:mysql://$host:$port/$database"
+        source.username = user
+        source.password = password
+        source.addDataSourceProperty("autoReconnect", "true")
     }
 
 }
